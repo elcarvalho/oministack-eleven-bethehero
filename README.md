@@ -1,5 +1,5 @@
 
-<p style="text-align: center;">
+<p align="center">
   <img src=".github/logo.png" />
 </p>
 
@@ -12,6 +12,6 @@ Muitas pessoas tem vontade de ajudar o próximo mas devido a correria do dia-dia
 Be the hero nasceu com a finalidae de ajudar a comunidade dev levando conhecimento ao longo de uma semana de treinamento onde este será desenvolvido e ao final do treinamento teremos um app totalmente funcional que poderá ser publicado de forma livre a fim de ajudar estas instituições.
 ```
 
-<p style="text-align: center;">
+<p align="center">
   <img src=".github/bethehero.png" />
 </p>
