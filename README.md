@@ -20,6 +20,12 @@ e ao final do treinamento teremos um app totalmente funcional que poderá ser
 publicado de forma livre a fim de ajudar estas instituições.
 ```
 
+## Docs
+
+> [Frontend](/frontend/README.md) 
+
+> [Backend](/backend/README.md)
+
 <p align="center">
   <img src=".github/bethehero.png" />
 </p>
