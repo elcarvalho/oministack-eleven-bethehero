@@ -23,6 +23,20 @@ export default function Profile() {
       .then(response => setIncidents(response.data));
   }, [ongId]);
 
+  const handleDeleteIncident = async id => {
+    try {
+      await api.delete(`incidents/${id}`, {
+        headers: {
+          Authorization: ongId
+        }
+      });
+
+      setIncidents(incidents.filter(incident => incident.id !== id));
+    } catch (error) {
+      alert("Erro ao deletar casom tente novamente.");
+    }
+  };
+
   return (
     <div className="profile-container">
       <header>
@@ -56,7 +70,10 @@ export default function Profile() {
               }).format(incident.value)}
             </p>
 
-            <button type="submit">
+            <button
+              type="button"
+              onClick={() => handleDeleteIncident(incident.id)}
+            >
               <FiTrash2 size={20} color="#a8a8b3" />
             </button>
           </li>
