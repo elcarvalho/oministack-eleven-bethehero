@@ -1,14 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { View, Image, Text, TouchableOpacity, FlatList } from "react-native";
+
+import api from "../../services/api";
 
 import logoImg from "../../assets/logo.png";
 
 import styles from "./styles";
 
 export default function Incidents() {
+  const [incidents, setIncidents] = useState([]);
+  const [total, setTotal] = useState(0);
   const navigation = useNavigation();
+
+  useEffect(() => {
+    async function loadIncidents() {
+      const response = await api.get("incidents");
+
+      setIncidents(response.data);
+      setTotal(response.headers["x-total-count"]);
+    }
+
+    loadIncidents();
+  });
 
   const navigateToDetail = () => {
     navigation.navigate("Detail");
@@ -19,7 +34,7 @@ export default function Incidents() {
       <View style={styles.header}>
         <Image source={logoImg} />
         <Text style={styles.headerText}>
-          Total de <Text style={styles.headerTextBold}>0 casos</Text>
+          Total de <Text style={styles.headerTextBold}>{total} casos</Text>
         </Text>
       </View>
 
@@ -31,18 +46,23 @@ export default function Incidents() {
       <FlatList
         style={styles.incidentList}
         showsVerticalScrollIndicator={false}
-        data={[1, 2, 3, 4]}
-        keyExtractor={incident => String(incident)}
-        renderItem={() => (
+        data={incidents}
+        keyExtractor={incident => String(incident.id)}
+        renderItem={({ item: incident }) => (
           <View style={styles.incident}>
             <Text style={styles.incidentProperty}>ONG:</Text>
-            <Text style={styles.incidentValue}>APAD</Text>
+            <Text style={styles.incidentValue}>{incident.name}</Text>
 
             <Text style={styles.incidentProperty}>CASO:</Text>
-            <Text style={styles.incidentValue}>Doguito com fome</Text>
+            <Text style={styles.incidentValue}>{incident.title}</Text>
 
             <Text style={styles.incidentProperty}>VALOR:</Text>
-            <Text style={styles.incidentValue}>R$ 60,00</Text>
+            <Text style={styles.incidentValue}>
+              {Intl.NumberFormat("pt-BR", {
+                style: "currency",
+                currency: "BRL"
+              }).format(incident.value)}
+            </Text>
 
             <TouchableOpacity
               style={styles.detailsButton}
