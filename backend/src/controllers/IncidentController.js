@@ -47,10 +47,12 @@ module.exports = {
 
     if (!incident) {
       response.status(404).json({ error: "Incident not found" });
+      return;
     }
 
     if (incident.ong_id !== ong_id) {
       response.status(400).json({ error: "Operation not permitted" });
+      return;
     }
 
     await connection("incidents")
